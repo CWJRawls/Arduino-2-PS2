@@ -233,7 +233,7 @@ void determineClockChange()
 void checkControlStep()
 {
   /* Logic for advancing through steps */
-  if(control_step == 0 && att_val == 0)
+  if(control_step == 0 && att_val == 0 && in_bit_count == 8)
   {
     control_step = 1;
   }
@@ -278,7 +278,13 @@ void checkControlStep()
   
   //Step 0 - Reserve this step to take in data
   
-  //Step 1 - 
+  //Step 1 - read from the console for the attention command followed by 0x01 on command line
+  if(att_val == 0)
+  {
+    if(clock_seq == 1)
+    {
+      
+    
   
   
   
