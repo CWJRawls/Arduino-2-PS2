@@ -52,6 +52,7 @@ int in_bit_count = 0;
 int att_val = 0;
 int command_val = 2;
 int last_clock = 1;
+int command_byte = 0;
 int clock_seq = 2; /* 0 = falling edge 1 = leading edge 2 = no change */
 int byte_seq = 0; /* used for determining which byte we are at
 0 - waiting for console
@@ -185,7 +186,7 @@ void setNextDataOut(byte data)
 /* Determine if we need to pull low on ack and do so */
 void checkAck()
 {
-  if(control_step > 0 && control_step < 9 && bit_count == 8)
+  if(control_step > 0 && control_step < 9 && (bit_count == 8 || in_bit_count == 8))
   {
     current_micros = micros();
     unsigned long distance = current_micros - last_clock_fall;
@@ -203,9 +204,11 @@ void checkAck()
   }
 }
 
+
+
 void checkConsolePins()
 {
-  att_val = digitalRead(att_pin);
+  att_val = digitalRead(att_pin); //we don't check the clock pin here since this is not beholden to being synced.
   
   if(clock_val == 1 && last_clock == 0)
   {
@@ -233,13 +236,17 @@ void determineClockChange()
 void checkControlStep()
 {
   /* Logic for advancing through steps */
-  if(control_step == 0 && att_val == 0 && in_bit_count == 8)
+  if(control_step == 0 && att_val == 0)
   {
     control_step = 1;
+    command_byte = 0;
+    in_bit_count == 0;
   }
   else if(control_step == 1 && ack_val == 1 && ack_send == 1)
   {
     control_step = 2;
+    command_byte = 0;
+    in_bit_count == 0;
   }
   else if(control_step == 2 && ack_val == 1 && ack_send == 1)
   {
@@ -248,10 +255,12 @@ void checkControlStep()
   else if(control_step == 3 && ack_val == 1 && ack_send == 1)
   {
     control_step = 4;
+    assembleButtonByte1();
   }
   else if(control_step == 4 && ack_val == 1 && ack_send == 1)
   {
     control_step = 5;
+    assembleButtonByte2();
   }
   else if(control_step == 5 && ack_val == 1 && ack_send == 1)
   {
@@ -279,17 +288,91 @@ void checkControlStep()
   //Step 0 - Reserve this step to take in data
   
   //Step 1 - read from the console for the attention command followed by 0x01 on command line
-  if(att_val == 0)
+ if(control_step == 1)
+ {
+  if(att_val == 0)//if the console has pulled low
   {
-    if(clock_seq == 1)
+    if(clock_seq == 1)//if we are at the leading edge of the clock
     {
-      
-    
-  
-  
-  
-  
-  
+      command_byte += command_val * pow(2, in_bit_count); //So far reading data for funzies
+      in_bit_count++;
+      //no need to woory about pulling on the ack pin here, another function takes care of that
+    }
+  }
+ }
+ 
+ if(control_step == 2)
+ {
+   if(clock_seq == 0) //if we are on the falling edge of the clock
+   {
+     setNextDataOut(controllerID); //only output a bit on the falling edge.
+     data_send = 1; //make sure to flag data for release over the pins.
+     //again, no need to pull ack here, that is already taken care of
+   }
+ }
+ 
+if(control_step == 3)
+{
+  if(clock_seq == 0)
+  {
+     setNextDataOut(data_out_flag);
+     data_send = 1;
+  }
+}
+
+if(control_step == 4)
+{
+  if(clock_seq == 0)
+  {
+    setNextDataOut(but_byte_1);
+    data_send = 1;
+  }
+}
+
+if(control_step == 5)
+{
+  if(clock_seq == 0)
+  {
+    setNextDataOut(but_byte_2);
+    data_send = 1;
+  }
+}
+
+if(control_step == 6)
+{
+  if(clock_seq == 0)
+  {
+    setNextDataOut(right_joy_h);
+    data_send = 1;
+  }
+}
+
+if(control_step == 7)
+{
+  if(clock_seq == 0)
+  {
+    setNextDataOut(right_joy_v);
+    data_send = 1;
+  }
+}
+
+if(control_step == 8)
+{
+  if(clock_seq == 0)
+  {
+    setNextDataOut(left_joy_h);
+    data_send = 1;
+  }
+}
+
+if(control_step == 9)
+{
+  if(clock_seq == 0)
+  {
+    setNextDataOut(left_joy_v);
+    data_send = 1;
+  }
+}  
 }
 
 void assembleButtonByte1()
