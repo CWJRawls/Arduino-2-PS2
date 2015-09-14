@@ -103,6 +103,7 @@ void loop()
   
   //Compute logic for control sequence
   checkAck();
+  checkControlStep();
   
   //send data out on pins
   sendData();
