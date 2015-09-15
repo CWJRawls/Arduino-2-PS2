@@ -1,9 +1,9 @@
 /* Holders for which pin is what */
-int data_pin = 1; //output from controller (transmits controller status)
-int command_pin = 2; //input from console (sends request for data) always read on leading edge of clock
-int att_pin = 6; //input from console (asks for attention)
-int clock_pin = 7; //input from console !CRUCIAL FOR TIMING!
-int ack_pin = 9; //output from controller (Says I'm still paying attention)
+int data_pin = 11; //output from controller (transmits controller status)
+int command_pin = 10; //input from console (sends request for data) always read on leading edge of clock
+int att_pin = 9; //input from console (asks for attention)
+int clock_pin = 6; //input from console !CRUCIAL FOR TIMING!
+int ack_pin = 5; //output from controller (Says I'm still paying attention)
 /* PS2 considers a full byte as 8 bits of info */
 /* These are all single bits of data */
 /* All valueas are considered active low, init high to avoid false positives */
