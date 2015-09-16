@@ -39,6 +39,10 @@ You should have received a copy of the GNU General Public License
 along with this.  If not, see <http://www.gnu.org/licenses/>.
 **********************************/
 
+#ifdef __cplusplus
+extern "C"{
+#endif
+
 #ifndef PS2INTERFACE
 #define PS2INTERFACE
 
@@ -51,10 +55,10 @@ along with this.  If not, see <http://www.gnu.org/licenses/>.
 #define SPI_PORT PORTB
 #define SPI_DDR  DDRB
 #define SPI_PIN  PINB
-#define ATT		0		//SS
-#define CMD		2		//MOSI
-#define DATA	3		//MISO
-#define CLK		1		//CLK
+#define ATT		8		//SS
+#define CMD		12		//MOSI
+#define DATA	13		//MISO
+#define CLK		7		//CLK
 
 // The PS2 also uses a non-standard 'acknowledge' signal -
 //  choose any pin you like for it 
@@ -67,11 +71,16 @@ along with this.  If not, see <http://www.gnu.org/licenses/>.
 // This function sets up the PS2 communication.
 //  Run it before your main loop, or at least before
 //  you try and send data.
-void startPS2Communication(void);
+
+ void startPS2Communication(void);
+
 
 // This function takes in a dataForController_t struct
 //  that tells the controller what signals to send.
+
 void sendPS2Data(dataForController_t);
+
+
 
 
 // Uncomment this, and a main() function will be included in
@@ -87,4 +96,8 @@ void sendPS2Data(dataForController_t);
 #define TEST_PORT PORTC
 #define TEST_DDR DDRC
 
+#endif
+
+#ifdef __cplusplus
+}
 #endif

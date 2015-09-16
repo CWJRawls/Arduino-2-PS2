@@ -1,7 +1,13 @@
 #include "PS2interface.h"
 #include "dataForController_t.h"
+#include <stdio.h>
 
 void setup(){
+  pinMode(13, OUTPUT);
+  pinMode(12, INPUT);
+  pinMode(8, INPUT);
+  pinMode(7, INPUT);
+  pinMode(4, OUTPUT);
   startPS2Communication();
 }
 
@@ -14,10 +20,10 @@ void loop()
 
 dataForController_t getControllerData()
 {
-  dataForController_t controllerData = getBlankDataForController();
   // Since our buttons are all held high and
   //  pulled low when pressed, we use the "!"
   //  operator to invert the readings from the pins
+  dataForController_t controllerData;
   controllerData.triangleOn = 1;
   controllerData.circleOn = 1;
   controllerData.squareOn = 1;
@@ -28,10 +34,10 @@ dataForController_t getControllerData()
   controllerData.dpadRightOn = 1;
   controllerData.l1On = 1;
   controllerData.r1On = 1;
-  controllerData.r2on = 1;
-  controllerData.l2on = 1;
-  controllerData.l3on = 1;
-  controllerData.r3on = 1;
+  controllerData.r2On = 1;
+  controllerData.l2On = 1;
+  controllerData.l3On = 1;
+  controllerData.r3On = 1;
   controllerData.selectOn = 1;
   controllerData.startOn = 1;
   

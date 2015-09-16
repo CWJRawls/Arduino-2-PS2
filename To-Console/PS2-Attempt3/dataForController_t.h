@@ -9,7 +9,7 @@
  *   to a library function that formats and sends
  *   appropriate controller data
  */
-
+#include <stdio.h>
 #ifndef DATA_FOR_CONTROLLER_T
 #define DATA_FOR_CONTROLLER_T
 
