@@ -55,10 +55,10 @@ extern "C"{
 #define SPI_PORT PORTB
 #define SPI_DDR  DDRB
 #define SPI_PIN  PINB
-#define ATT		8		//SS
-#define CMD		12		//MOSI
-#define DATA	13		//MISO
-#define CLK		7		//CLK
+#define ATT		0		//SS
+#define CMD		2		//MOSI
+#define DATA	        3		//MISO
+#define CLK		1		//CLK
 
 // The PS2 also uses a non-standard 'acknowledge' signal -
 //  choose any pin you like for it 
