@@ -2,6 +2,7 @@
 #define PS2Controller
 
 #include <Arduino.h>
+#include <inttypes.h>
 
 //struct to declare which pin is used for which button. Covers digital pins only. See next struct for use of analog pins
 struct controller_pins
@@ -54,26 +55,29 @@ struct uses_analog
 }
 
 class PS2Controller{
+	private:
+	controller_pins pins;
+	uses_analog analog;
 	public:
-	PS2Controller(); //Constructor 1: sets pins to a sequential standard according to arduino uno. Will use analog pins as digital
+	PS2Controller(void); //Constructor 1: sets pins to a sequential standard according to arduino uno. Will use analog pins as digital
 	PS2Controller(controller_pins, uses_analog); //Constructor 2: uses custom pin settings
-	~PS2Controller();
-	writeTriangle(int); //using normal int here for ease of use for other programmers.
-	writeCircle(int); //All of the methods that require an integer parameter control both the on and off state
-	writeSquare(int);
-	writeX(int);
-	writeSelect(int);
-	writeStart(int);
-	writeR1(int);
-	writeR2(int);
-	writeR3(int);
-	writeL1(int);
-	writeL2(int);
-	writeL3(int);
-	writeUp(int);
-	writeDown(int);
-	writeLeft(int);
-	writeRight(int);
+	~PS2Controller(void);
+	void writeTriangle(int); //using normal int here for ease of use for other programmers.
+	void writeCircle(int); //All of the methods that require an integer parameter control both the on and off state
+	void writeSquare(int);
+	void writeX(int);
+	void writeSelect(int);
+	void writeStart(int);
+	void writeR1(int);
+	void writeR2(int);
+	void writeR3(int);
+	void writeL1(int);
+	void writeL2(int);
+	void writeL3(int);
+	void writeUp(int);
+	void writeDown(int);
+	void writeLeft(int);
+	void writeRight(int);
 }
 
 #endif
