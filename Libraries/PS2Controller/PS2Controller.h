@@ -8,76 +8,60 @@
 struct controller_pins
 {
 	//Declare these first and as 8-bit integers to save space on the arduino
-	uint8_t tri_pin : 8;
-	uint8_t square_pin : 8;
-	uint8_t circle_pin : 8;
-	uint8_t x_pin : 8;
-	uint8_t d_up : 8;
-	uint8_t d_down : 8;
-	uint8_t d_left : 8;
-	uint8_t d_right : 8;
-	uint8_t slct : 8;
-	uint8_t strt : 8;
-	uint8_t r1_pin : 8;
-	uint8_t r2_pin : 8;
-	uint8_t r3_pin : 8;
-	uint8_t l1_pin : 8;
-	uint8_t l2_pin : 8;
-	uint8_t l3_pin : 8;
+	uint8_t pins[9];
+	/* Pin indeces
+	0 x button
+	1 O button
+	2 Tri button
+	3 Start button
+	4 R1 button
+	5 L1 button
+	6 Joystick SDI
+	7 Joystick CLK
+	8 Chip Select 
+	*/
 	
 	//current struct size: 16 bytes
-	//will add joysticks later when we figure them out.
+	
 }
 
-//struct for declaring which pins are actually analog. Assumes an arduino board which will start with 'A'
-struct uses_analog
+//Struct for containing controller data
+
+struct c_data
 {
-	//if the pin used is analog set the number with the corresponding button. Otherwise set the number to -1
-	uint8_t tri_pin : 8;
-	uint8_t square_pin : 8;
-	uint8_t circle_pin : 8;
-	uint8_t x_pin : 8;
-	uint8_t d_up : 8;
-	uint8_t d_down : 8;
-	uint8_t d_left : 8;
-	uint8_t d_right : 8;
-	uint8_t slct : 8;
-	uint8_t strt : 8;
-	uint8_t r1_pin : 8;
-	uint8_t r2_pin : 8;
-	uint8_t r3_pin : 8;
-	uint8_t l1_pin : 8;
-	uint8_t l2_pin : 8;
-	uint8_t l3_pin : 8;
-	
-	//current struct size: 16 bytes
-	//will add joysticks later when we figure them out.
+	uint8_t data[10];
+	/* Data indeces
+	0 x
+	1 o
+	2 Tri
+	3 Start
+	4 R1
+	5 L1
+	6 R Joy x
+	7 R Joy y
+	8 L Joy x
+	9 L Joy y
+	*/
 }
 
 class PS2Controller{
 	private:
 	controller_pins pins;
-	uses_analog analog;
+	c_data current_data;	
+	void writeTriangle(uint8_t); //using normal int here for ease of use for other programmers.
+	void writeCircle(uint8_t);
+	void writeX(uint8_t);
+	void writeStart(uint8_t);
+	void writeR1(uint8_t);
+	void writeL1(uint8_t);
+	void writeRJoy(uint8_t, uint8_t);
+	void writeLJoy(uint8_t, uint8_t);
 	public:
 	PS2Controller(void); //Constructor 1: sets pins to a sequential standard according to arduino uno. Will use analog pins as digital
-	PS2Controller(controller_pins, uses_analog); //Constructor 2: uses custom pin settings
+	PS2Controller(controller_pins); //Constructor 2: uses custom pin settings
 	~PS2Controller(void);
-	void writeTriangle(int); //using normal int here for ease of use for other programmers.
-	void writeCircle(int); //All of the methods that require an integer parameter control both the on and off state
-	void writeSquare(int);
-	void writeX(int);
-	void writeSelect(int);
-	void writeStart(int);
-	void writeR1(int);
-	void writeR2(int);
-	void writeR3(int);
-	void writeL1(int);
-	void writeL2(int);
-	void writeL3(int);
-	void writeUp(int);
-	void writeDown(int);
-	void writeLeft(int);
-	void writeRight(int);
+	sendData(c_data); //used to communicate current frame of data to PCB
+
 }
 
 #endif
