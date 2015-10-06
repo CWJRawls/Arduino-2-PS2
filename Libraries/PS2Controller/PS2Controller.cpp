@@ -175,7 +175,7 @@ void writeRJoy(uint8_t val, uint8_t val2)
 				if(j == 0)
 				{
 					digitalWrite(pins.pins[7], LOW);
-					digitalWrite(pins.pins[6], LOW);
+					digitalWrite(pins.pins[6], HIGH);
 				}
 				
 				if(j == 2)
@@ -231,13 +231,13 @@ void writeLJoy(uint8_t val, uint8_t val2)
 				if(j == 0)
 				{
 					digitalWrite(pins.pins[7], LOW);
-					digitalWrite(pins.pins[6], HIGH);
+					digitalWrite(pins.pins[6], LOW);
 				}
 				
 				if(j == 2)
 				{
 					digitalWrite(pins.pins[7], LOW);
-					digitalWrite(pins.pins[6], LOW);
+					digitalWrite(pins.pins[6], HIGH);
 				}
 				
 				if(j % 2 == 0 && i > 3)
@@ -271,13 +271,13 @@ void writeLJoy(uint8_t val, uint8_t val2)
 				if(j == 0)
 				{
 					digitalWrite(pins.pins[7], LOW);
-					digitalWrite(pins.pins[6], LOW);
+					digitalWrite(pins.pins[6], HIGH);
 				}
 				
 				if(j == 2)
 				{
 					digitalWrite(pins.pins[7], LOW);
-					digitalWrite(pins.pins[6], LOW);
+					digitalWrite(pins.pins[6], HIGH);
 				}
 				
 				if(j % 2 == 0 && i > 3)
