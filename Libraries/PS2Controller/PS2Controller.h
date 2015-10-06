@@ -23,7 +23,7 @@ struct controller_pins
 	
 	//current struct size: 16 bytes
 	
-}
+};
 
 //Struct for containing controller data
 
@@ -42,7 +42,7 @@ struct c_data
 	8 L Joy x
 	9 L Joy y
 	*/
-}
+};
 
 class PS2Controller{
 	private:
