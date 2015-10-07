@@ -1,14 +1,9 @@
-//#ifndef PS2Controller
-//#define PS2Controller
+#ifndef PS2Controller_t
+#define PS2Controller_t
 
 #include <Arduino.h>
 #include <inttypes.h>
 
-//struct to declare which pin is used for which button. Covers digital pins only. See next struct for use of analog pins
-struct controller_pins
-{
-	//Declare these first and as 8-bit integers to save space on the arduino
-	uint8_t pins[9];
 	/* Pin indeces
 	0 x button
 	1 O button
@@ -21,15 +16,6 @@ struct controller_pins
 	8 Chip Select 
 	*/
 	
-	//current struct size: 16 bytes
-	
-};
-
-//Struct for containing controller data
-
-struct c_data
-{
-	uint8_t data[10];
 	/* Data indeces
 	0 x
 	1 o
@@ -42,11 +28,11 @@ struct c_data
 	8 L Joy x
 	9 L Joy y
 	*/
-};
+
 
 class PS2Controller{
-	private:
-	uint8_t pins[9];	
+	uint8_t pins[9];
+	public:	
 	void writeTriangle(uint8_t); //using normal int here for ease of use for other programmers.
 	void writeCircle(uint8_t);
 	void writeX(uint8_t);
@@ -55,7 +41,6 @@ class PS2Controller{
 	void writeL1(uint8_t);
 	void writeRJoy(uint8_t, uint8_t);
 	void writeLJoy(uint8_t, uint8_t);
-	public:
 	PS2Controller(); //Constructor 1: sets pins to a sequential standard according to arduino uno. Will use analog pins as digital
 	//PS2Controller(controller_pins); //Constructor 2: uses custom pin settings
 	~PS2Controller(void);
@@ -64,4 +49,4 @@ class PS2Controller{
 
 };
 
-//#endif
+#endif

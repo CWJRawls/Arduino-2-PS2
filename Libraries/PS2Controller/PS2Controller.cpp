@@ -17,18 +17,6 @@ void setPins(uint8_t p[])
 	pins = p;
 }
 
-void sendData(uint8_t data[])
-{
-	writeX(data[0]);
-	writeCircle(data[1]);
-	writeTriangle(data[2]);
-	writeStart(data[3]);
-	writeR1(data[4]);
-	writeL1(data[5]);
-	writeRJoy(data[6], data[7]);
-	writeLJoy(data[8], data[9]);
-}
-
 void sendData(uint8_t[] data)
 {
 	writeX(data[0]);
