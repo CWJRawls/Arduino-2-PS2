@@ -1,5 +1,6 @@
 #include "PS2Controller.h"
 
+uint8_t pinsin[9];
 
 PS2Controller::PS2Controller(void)
 {
@@ -11,13 +12,16 @@ PS2Controller::PS2Controller(void)
 
 }
 
-void setPins(uint8_t p[])
+void PS2Controller::setPins(uint8_t pins[])
 {
 	//sets based on user code.
-	pins = p;
+	for(int i = 0; i < 9; i++)
+	{
+		pinsin[i] = pins[i];
+	}
 }
 
-void sendData(uint8_t[] data)
+void PS2Controller::sendData(uint8_t data[])
 {
 	writeX(data[0]);
 	writeCircle(data[1]);
@@ -29,7 +33,7 @@ void sendData(uint8_t[] data)
 	writeRJoy(data[8], data[9]);
 }
 
-void writeX(uint8_t val)
+void PS2Controller::writeX(uint8_t val)
 {
 	if(val == 1)
 	{
@@ -41,7 +45,7 @@ void writeX(uint8_t val)
 	}
 }
 
-void writeCircle(uint8_t val)
+void PS2Controller::writeCircle(uint8_t val)
 {
 	if(val == 1)
 	{
@@ -53,7 +57,7 @@ void writeCircle(uint8_t val)
 	}
 }
 
-void writeTriangle(uint8_t val)
+void PS2Controller::writeTriangle(uint8_t val)
 {
 	if(val == 1)
 	{
@@ -65,7 +69,7 @@ void writeTriangle(uint8_t val)
 	}
 }
 
-void writeStart(uint8_t val)
+void PS2Controller::writeStart(uint8_t val)
 {
 	if(val == 1)
 	{
@@ -77,7 +81,7 @@ void writeStart(uint8_t val)
 	}
 }
 
-void writeR1(uint8_t val)
+void PS2Controller::writeR1(uint8_t val)
 {
 	if(val == 1)
 	{
@@ -89,7 +93,7 @@ void writeR1(uint8_t val)
 	}
 }
 
-void writeL1(uint8_t val)
+void PS2Controller::writeL1(uint8_t val)
 {
 	if(val == 1)
 	{
@@ -101,7 +105,7 @@ void writeL1(uint8_t val)
 	}
 }
 
-void writeRJoy(uint8_t val, uint8_t val2)
+void PS2Controller::writeRJoy(uint8_t val, uint8_t val2)
 {
 	digitalWrite(pins[8], LOW);
 	
@@ -197,7 +201,7 @@ void writeRJoy(uint8_t val, uint8_t val2)
 	}
 }
 
-void writeLJoy(uint8_t val, uint8_t val2)
+void PS2Controller::writeLJoy(uint8_t val, uint8_t val2)
 {
 	digitalWrite(pins[8], LOW);
 	

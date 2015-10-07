@@ -1,5 +1,3 @@
-#ifndef PS2Controller_t
-#define PS2Controller_t
 
 #include <Arduino.h>
 #include <inttypes.h>
@@ -31,22 +29,23 @@
 
 
 class PS2Controller{
+	private:
 	uint8_t pins[9];
+	uint8_t pinsins[9];
+	uint8_t data[10];
 	public:	
-	void writeTriangle(uint8_t); //using normal int here for ease of use for other programmers.
-	void writeCircle(uint8_t);
-	void writeX(uint8_t);
-	void writeStart(uint8_t);
-	void writeR1(uint8_t);
-	void writeL1(uint8_t);
-	void writeRJoy(uint8_t, uint8_t);
-	void writeLJoy(uint8_t, uint8_t);
+	void writeTriangle(uint8_t val); //using normal int here for ease of use for other programmers.
+	void writeCircle(uint8_t val);
+	void writeX(uint8_t val);
+	void writeStart(uint8_t val);
+	void writeR1(uint8_t val);
+	void writeL1(uint8_t val);
+	void writeRJoy(uint8_t val, uint8_t val2);
+	void writeLJoy(uint8_t val, uint8_t val2);
 	PS2Controller(); //Constructor 1: sets pins to a sequential standard according to arduino uno. Will use analog pins as digital
 	//PS2Controller(controller_pins); //Constructor 2: uses custom pin settings
 	~PS2Controller(void);
-	void setPins(uint8_t[]);
-	void sendData(uint8_t[]); //used to communicate current frame of data to PCB
+	void setPins(uint8_t pins[9]);
+	void sendData(uint8_t data[10]); //used to communicate current frame of data to PCB
 
 };
-
-#endif
