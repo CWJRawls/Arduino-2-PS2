@@ -11,7 +11,7 @@ PS2Controller::PS2Controller(void)
 
 }
 
-PS2Controller::PS2Controller(controller_pins p)
+void setPins(uint8_t[] p)
 {
 	//sets based on user code.
 	pins = p;
@@ -29,16 +29,16 @@ void sendData(c_data data)
 	writeLJoy(data.data[8], data.data[9]);
 }
 
-void sendData(c_data data)
+void sendData(uint8_t[] data)
 {
-	writeX(data.data[0]);
-	writeCircle(data.data[1]);
-	writeTriangle(data.data[2]);
-	writeStart(data.data[3]);
-	writeR1(data.data[4]);
-	writeL1(data.data[5]);
-	writeRJoy(data.data[6], data.data[7]);
-	writeRJoy(data.data[8], data.data[9]);
+	writeX(data[0]);
+	writeCircle(data[1]);
+	writeTriangle(data[2]);
+	writeStart(data[3]);
+	writeR1(data[4]);
+	writeL1(data[5]);
+	writeRJoy(data[6], data.data[7]);
+	writeRJoy(data[8], data.data[9]);
 }
 
 void writeX(uint8_t val)

@@ -46,8 +46,7 @@ struct c_data
 
 class PS2Controller{
 	private:
-	controller_pins pins;
-	c_data current_data;	
+	uint8_t[9] pins;	
 	void writeTriangle(uint8_t); //using normal int here for ease of use for other programmers.
 	void writeCircle(uint8_t);
 	void writeX(uint8_t);
@@ -57,9 +56,10 @@ class PS2Controller{
 	void writeRJoy(uint8_t, uint8_t);
 	void writeLJoy(uint8_t, uint8_t);
 	public:
-	PS2Controller(void); //Constructor 1: sets pins to a sequential standard according to arduino uno. Will use analog pins as digital
-	PS2Controller(controller_pins); //Constructor 2: uses custom pin settings
+	PS2Controller(); //Constructor 1: sets pins to a sequential standard according to arduino uno. Will use analog pins as digital
+	//PS2Controller(controller_pins); //Constructor 2: uses custom pin settings
 	~PS2Controller(void);
+	void setPins(uint8_t[]);
 	void sendData(c_data); //used to communicate current frame of data to PCB
 
 }
