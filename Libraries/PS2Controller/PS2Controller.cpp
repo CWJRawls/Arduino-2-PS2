@@ -295,4 +295,6 @@ void PS2Controller::writeLJoy(uint8_t val, uint8_t val2)
 		digitalWrite(pins[8], HIGH);
 		delay(25); //put a defined space between bytes of data
 	}
+	
+	PS2Controller::~PS2Controller() {}
 }
