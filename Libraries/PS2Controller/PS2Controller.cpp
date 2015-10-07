@@ -6,27 +6,27 @@ PS2Controller::PS2Controller(void)
 	//set default values, has no shoudler button use
 	for(int i = 0; i < 9; i++)
 	{
-		pins.pins[i] = i + 2;
+		pins[i] = i + 2;
 	}
 
 }
 
-void setPins(uint8_t[] p)
+void setPins(uint8_t p[])
 {
 	//sets based on user code.
 	pins = p;
 }
 
-void sendData(c_data data)
+void sendData(uint8_t data[])
 {
-	writeX(data.data[0]);
-	writeCircle(data.data[1]);
-	writeTriangle(data.data[2]);
-	writeStart(data.data[3]);
-	writeR1(data.data[4]);
-	writeL1(data.data[5]);
-	writeRJoy(data.data[6], data.data[7]);
-	writeLJoy(data.data[8], data.data[9]);
+	writeX(data[0]);
+	writeCircle(data[1]);
+	writeTriangle(data[2]);
+	writeStart(data[3]);
+	writeR1(data[4]);
+	writeL1(data[5]);
+	writeRJoy(data[6], data[7]);
+	writeLJoy(data[8], data[9]);
 }
 
 void sendData(uint8_t[] data)
@@ -37,19 +37,19 @@ void sendData(uint8_t[] data)
 	writeStart(data[3]);
 	writeR1(data[4]);
 	writeL1(data[5]);
-	writeRJoy(data[6], data.data[7]);
-	writeRJoy(data[8], data.data[9]);
+	writeRJoy(data[6], data[7]);
+	writeRJoy(data[8], data[9]);
 }
 
 void writeX(uint8_t val)
 {
 	if(val == 1)
 	{
-		digitalWrite(pins.pins[0], HIGH);
+		digitalWrite(pins[0], HIGH);
 	}
 	else
 	{
-		digitalWrite(pins.pins[0], LOW);
+		digitalWrite(pins[0], LOW);
 	}
 }
 
@@ -57,11 +57,11 @@ void writeCircle(uint8_t val)
 {
 	if(val == 1)
 	{
-		digitalWrite(pins.pins[1], HIGH);
+		digitalWrite(pins[1], HIGH);
 	}
 	else
 	{
-		digitalWrite(pins.pins[1], LOW);
+		digitalWrite(pins[1], LOW);
 	}
 }
 
@@ -69,11 +69,11 @@ void writeTriangle(uint8_t val)
 {
 	if(val == 1)
 	{
-		digitalWrite(pins.pins[2], HIGH);
+		digitalWrite(pins[2], HIGH);
 	}
 	else
 	{
-		digitalWrite(pins.pins[2], LOW);
+		digitalWrite(pins[2], LOW);
 	}
 }
 
@@ -81,11 +81,11 @@ void writeStart(uint8_t val)
 {
 	if(val == 1)
 	{
-		digitalWrite(pins.pins[3], HIGH);
+		digitalWrite(pins[3], HIGH);
 	}
 	else
 	{
-		digitalWrite(pins.pins[3], LOW);
+		digitalWrite(pins[3], LOW);
 	}
 }
 
@@ -93,11 +93,11 @@ void writeR1(uint8_t val)
 {
 	if(val == 1)
 	{
-		digitalWrite(pins.pins[4], HIGH);
+		digitalWrite(pins[4], HIGH);
 	}
 	else
 	{
-		digitalWrite(pins.pins[4], LOW);
+		digitalWrite(pins[4], LOW);
 	}
 }
 
@@ -105,23 +105,23 @@ void writeL1(uint8_t val)
 {
 	if(val == 1)
 	{
-		digitalWrite(pins.pins[5], HIGH);
+		digitalWrite(pins[5], HIGH);
 	}
 	else
 	{
-		digitalWrite(pins.pins[5], LOW);
+		digitalWrite(pins[5], LOW);
 	}
 }
 
 void writeRJoy(uint8_t val, uint8_t val2)
 {
-	digitalWrite(pins.pins[8], LOW);
+	digitalWrite(pins[8], LOW);
 	
 	for(int i = 0; i < 2; i++)
 	{
 		uint8_t mask = 1;
 		
-		digitalWrite(pins.pins[8], LOW);
+		digitalWrite(pins[8], LOW);
 		
 		if(i == 0) //Write X axis
 		{
@@ -129,31 +129,31 @@ void writeRJoy(uint8_t val, uint8_t val2)
 			{
 				if(j % 2 != 0)
 				{
-					digitalWrite(pins.pins[7], HIGH);
+					digitalWrite(pins[7], HIGH);
 				}
 				
 				if(j == 0)
 				{
-					digitalWrite(pins.pins[7], LOW);
-					digitalWrite(pins.pins[6], LOW);
+					digitalWrite(pins[7], LOW);
+					digitalWrite(pins[6], LOW);
 				}
 				
 				if(j == 2)
 				{
-					digitalWrite(pins.pins[7], LOW);
-					digitalWrite(pins.pins[6], LOW);
+					digitalWrite(pins[7], LOW);
+					digitalWrite(pins[6], LOW);
 				}
 				
 				if(j % 2 == 0 && i > 3)
 				{
-					digitalWrite(pins.pins[7], LOW);
+					digitalWrite(pins[7], LOW);
 					if(val & mask)
 					{
-						digitalWrite(pins.pins[6], HIGH);
+						digitalWrite(pins[6], HIGH);
 					}
 					else
 					{
-						digitalWrite(pins.pins[6], LOW);
+						digitalWrite(pins[6], LOW);
 					}
 					
 					mask << 1; //shuffle the bitmask to the left
@@ -169,31 +169,31 @@ void writeRJoy(uint8_t val, uint8_t val2)
 			{
 				if(j % 2 != 0)
 				{
-					digitalWrite(pins.pins[7], HIGH);
+					digitalWrite(pins[7], HIGH);
 				}
 				
 				if(j == 0)
 				{
-					digitalWrite(pins.pins[7], LOW);
-					digitalWrite(pins.pins[6], HIGH);
+					digitalWrite(pins[7], LOW);
+					digitalWrite(pins[6], HIGH);
 				}
 				
 				if(j == 2)
 				{
-					digitalWrite(pins.pins[7], LOW);
-					digitalWrite(pins.pins[6], LOW);
+					digitalWrite(pins[7], LOW);
+					digitalWrite(pins[6], LOW);
 				}
 				
 				if(j % 2 == 0 && i > 3)
 				{
-					digitalWrite(pins.pins[7], LOW);
+					digitalWrite(pins[7], LOW);
 					if(val2 & mask)
 					{
-						digitalWrite(pins.pins[6], HIGH);
+						digitalWrite(pins[6], HIGH);
 					}
 					else
 					{
-						digitalWrite(pins.pins[6], LOW);
+						digitalWrite(pins[6], LOW);
 					}
 					
 					mask << 1; //shuffle the bitmask to the left
@@ -204,20 +204,20 @@ void writeRJoy(uint8_t val, uint8_t val2)
 		}
 		
 		
-		digitalWrite(pins.pins[8], HIGH);
+		digitalWrite(pins[8], HIGH);
 		delay(25); //put a defined space between bytes
 	}
 }
 
 void writeLJoy(uint8_t val, uint8_t val2)
 {
-	digitalWrite(pins.pins[8], LOW);
+	digitalWrite(pins[8], LOW);
 	
 	for(int i = 0; i < 2; i++)
 	{
 		uint8_t mask = 1;
 		
-		digitalWrite(pins.pins[8], LOW);
+		digitalWrite(pins[8], LOW);
 		
 		if(i == 0) //Write X axis
 		{
@@ -225,31 +225,31 @@ void writeLJoy(uint8_t val, uint8_t val2)
 			{
 				if(j % 2 != 0)
 				{
-					digitalWrite(pins.pins[7], HIGH);
+					digitalWrite(pins[7], HIGH);
 				}
 				
 				if(j == 0)
 				{
-					digitalWrite(pins.pins[7], LOW);
-					digitalWrite(pins.pins[6], LOW);
+					digitalWrite(pins[7], LOW);
+					digitalWrite(pins[6], LOW);
 				}
 				
 				if(j == 2)
 				{
-					digitalWrite(pins.pins[7], LOW);
-					digitalWrite(pins.pins[6], HIGH);
+					digitalWrite(pins[7], LOW);
+					digitalWrite(pins[6], HIGH);
 				}
 				
 				if(j % 2 == 0 && i > 3)
 				{
-					digitalWrite(pins.pins[7], LOW);
+					digitalWrite(pins[7], LOW);
 					if(val & mask)
 					{
-						digitalWrite(pins.pins[6], HIGH);
+						digitalWrite(pins[6], HIGH);
 					}
 					else
 					{
-						digitalWrite(pins.pins[6], LOW);
+						digitalWrite(pins[6], LOW);
 					}
 					
 					mask << 1; //shuffle the bitmask to the left
@@ -265,31 +265,31 @@ void writeLJoy(uint8_t val, uint8_t val2)
 			{
 				if(j % 2 != 0)
 				{
-					digitalWrite(pins.pins[7], HIGH);
+					digitalWrite(pins[7], HIGH);
 				}
 				
 				if(j == 0)
 				{
-					digitalWrite(pins.pins[7], LOW);
-					digitalWrite(pins.pins[6], HIGH);
+					digitalWrite(pins[7], LOW);
+					digitalWrite(pins[6], HIGH);
 				}
 				
 				if(j == 2)
 				{
-					digitalWrite(pins.pins[7], LOW);
-					digitalWrite(pins.pins[6], HIGH);
+					digitalWrite(pins[7], LOW);
+					digitalWrite(pins[6], HIGH);
 				}
 				
 				if(j % 2 == 0 && i > 3)
 				{
-					digitalWrite(pins.pins[7], LOW);
+					digitalWrite(pins[7], LOW);
 					if(val2 & mask)
 					{
-						digitalWrite(pins.pins[6], HIGH);
+						digitalWrite(pins[6], HIGH);
 					}
 					else
 					{
-						digitalWrite(pins.pins[6], LOW);
+						digitalWrite(pins[6], LOW);
 					}
 					
 					mask << 1; //shuffle the bitmask to the left
@@ -300,7 +300,7 @@ void writeLJoy(uint8_t val, uint8_t val2)
 		}
 		
 		
-		digitalWrite(pins.pins[8], HIGH);
+		digitalWrite(pins[8], HIGH);
 		delay(25); //put a defined space between bytes of data
 	}
 }
