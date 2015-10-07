@@ -46,7 +46,7 @@ struct c_data
 
 class PS2Controller{
 	private:
-	uint8_t[9] pins;	
+	uint8_t pins[9];	
 	void writeTriangle(uint8_t); //using normal int here for ease of use for other programmers.
 	void writeCircle(uint8_t);
 	void writeX(uint8_t);
