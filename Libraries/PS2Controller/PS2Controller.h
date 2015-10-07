@@ -44,7 +44,7 @@ class PS2Controller{
 	void writeLJoy(uint8_t val, uint8_t val2);
 	PS2Controller(); //Constructor 1: sets pins to a sequential standard according to arduino uno. Will use analog pins as digital
 	//PS2Controller(controller_pins); //Constructor 2: uses custom pin settings
-	~PS2Controller(void);
+	~PS2Controller();
 	void setPins(uint8_t pins[9]);
 	void sendData(uint8_t data[10]); //used to communicate current frame of data to PCB
 
