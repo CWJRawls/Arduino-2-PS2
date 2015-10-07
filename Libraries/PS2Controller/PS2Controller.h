@@ -1,5 +1,5 @@
-#ifndef PS2Controller
-#define PS2Controller
+//#ifndef PS2Controller
+//#define PS2Controller
 
 #include <Arduino.h>
 #include <inttypes.h>
@@ -64,4 +64,4 @@ class PS2Controller{
 
 }
 
-#endif
+//#endif
