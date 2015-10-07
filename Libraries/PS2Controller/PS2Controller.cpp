@@ -105,6 +105,8 @@ void PS2Controller::writeL1(uint8_t val)
 	}
 }
 
+/* IMPORTANT NOTE */
+/* The digital pot expects the address and data MSB -> LSB */ 
 void PS2Controller::writeRJoy(uint8_t val, uint8_t val2)
 {
 	digitalWrite(pins[8], LOW);
@@ -112,6 +114,7 @@ void PS2Controller::writeRJoy(uint8_t val, uint8_t val2)
 	for(int i = 0; i < 2; i++)
 	{
 		uint8_t mask = 1;
+		mask << 7; //shift to MSB to start
 		
 		digitalWrite(pins[8], LOW);
 		
@@ -148,7 +151,7 @@ void PS2Controller::writeRJoy(uint8_t val, uint8_t val2)
 						digitalWrite(pins[6], LOW);
 					}
 					
-					mask << 1; //shuffle the bitmask to the left
+					mask >> 1; //shuffle the bitmask to the right
 				}
 				
 				//delay(25); //Give the signal a moment to travel
@@ -167,13 +170,13 @@ void PS2Controller::writeRJoy(uint8_t val, uint8_t val2)
 				if(j == 0)
 				{
 					digitalWrite(pins[7], LOW);
-					digitalWrite(pins[6], HIGH);
+					digitalWrite(pins[6], LOW);
 				}
 				
 				if(j == 2)
 				{
 					digitalWrite(pins[7], LOW);
-					digitalWrite(pins[6], LOW);
+					digitalWrite(pins[6], HIGH);
 				}
 				
 				if(j % 2 == 0 && i > 3)
@@ -188,7 +191,7 @@ void PS2Controller::writeRJoy(uint8_t val, uint8_t val2)
 						digitalWrite(pins[6], LOW);
 					}
 					
-					mask << 1; //shuffle the bitmask to the left
+					mask >> 1; //shuffle the bitmask to the right
 				}
 				
 				//delay(25); //Give the signal a moment to travel
@@ -197,10 +200,12 @@ void PS2Controller::writeRJoy(uint8_t val, uint8_t val2)
 		
 		
 		digitalWrite(pins[8], HIGH);
-		delay(25); //put a defined space between bytes
+		delay(1); //put a defined space between bytes
 	}
 }
 
+/* IMPORTANT NOTE */
+/* The digital pot expects the address and data MSB -> LSB */ 
 void PS2Controller::writeLJoy(uint8_t val, uint8_t val2)
 {
 	digitalWrite(pins[8], LOW);
@@ -208,6 +213,7 @@ void PS2Controller::writeLJoy(uint8_t val, uint8_t val2)
 	for(int i = 0; i < 2; i++)
 	{
 		uint8_t mask = 1;
+		mask << 7;
 		
 		digitalWrite(pins[8], LOW);
 		
@@ -223,13 +229,13 @@ void PS2Controller::writeLJoy(uint8_t val, uint8_t val2)
 				if(j == 0)
 				{
 					digitalWrite(pins[7], LOW);
-					digitalWrite(pins[6], LOW);
+					digitalWrite(pins[6], HIGH);
 				}
 				
 				if(j == 2)
 				{
 					digitalWrite(pins[7], LOW);
-					digitalWrite(pins[6], HIGH);
+					digitalWrite(pins[6], LOW);
 				}
 				
 				if(j % 2 == 0 && i > 3)
@@ -244,7 +250,7 @@ void PS2Controller::writeLJoy(uint8_t val, uint8_t val2)
 						digitalWrite(pins[6], LOW);
 					}
 					
-					mask << 1; //shuffle the bitmask to the left
+					mask >> 1; //shuffle the bitmask to the right
 				}
 				
 				//delay(25); //Give the signal a moment to travel
@@ -284,7 +290,7 @@ void PS2Controller::writeLJoy(uint8_t val, uint8_t val2)
 						digitalWrite(pins[6], LOW);
 					}
 					
-					mask << 1; //shuffle the bitmask to the left
+					mask >> 1; //shuffle the bitmask to the right
 				}
 				
 				//delay(25); //Give the signal a moment to travel
@@ -293,6 +299,6 @@ void PS2Controller::writeLJoy(uint8_t val, uint8_t val2)
 		
 		
 		digitalWrite(pins[8], HIGH);
-		delay(25); //put a defined space between bytes of data
+		delay(1); //put a space between bytes of data
 	}
 }
