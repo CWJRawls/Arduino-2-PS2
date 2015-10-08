@@ -76,5 +76,7 @@ void loop()
   i++;
   k++;
   
+  control.sendData(data);
+  
   delay(100);
 }
