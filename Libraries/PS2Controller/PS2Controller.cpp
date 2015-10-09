@@ -36,7 +36,7 @@ void PS2Controller::sendData(uint8_t data[])
 	writeSHDN(1);
 }
 
-void PS2Controller::sendDatas(uint8_t data[])
+void PS2Controller::sendData2(uint8_t data[])
 {
 	writeX(data[0]);
 	writeCircle(data[1]);
