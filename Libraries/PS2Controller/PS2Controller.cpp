@@ -36,6 +36,21 @@ void PS2Controller::sendData(uint8_t data[])
 	writeSHDN(1);
 }
 
+void PS2Controller::sendDatas(uint8_t data[])
+{
+	writeX(data[0]);
+	writeCircle(data[1]);
+	writeSquare(data[2]);
+	writeTriangle(data[3]);
+	writeStart(data[4]);
+	writeR1(data[5]);
+	writeL1(data[6]);
+	//writeSHDN(0);
+	writeRJoy(data[7], data[8]);
+	writeRJoy(data[9], data[10]);
+	//writeSHDN(1);
+}
+
 void PS2Controller::writeX(uint8_t val)
 {
 	if(val == 1)

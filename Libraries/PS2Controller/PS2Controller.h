@@ -51,5 +51,5 @@ class PS2Controller{
 	//PS2Controller(controller_pins); //Constructor 2: uses custom pin settings
 	void setPins(uint8_t pins[10]);
 	void sendData(uint8_t data[11]); //used to communicate current frame of data to PCB
-
+	void sendData2(uint8_t data[11]);
 };
