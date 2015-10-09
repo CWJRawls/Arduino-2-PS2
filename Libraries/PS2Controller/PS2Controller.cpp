@@ -324,15 +324,14 @@ void PS2Controller::writeLJoy(uint8_t val, uint8_t val2)
 	}
 }
 	
-	void writeSHDN(uint8_t val)
+void PS2Controller::writeSHDN(uint8_t val)
+{
+	if(val == 1)
 	{
-		if(val == 1)
-		{
-			digitalWrite(pins[10], HIGH);
-		}
-		else
-		{
-			digitalWrite(pins[10], LOW);
-		}
+		digitalWrite(pins[10], HIGH);	
+	}
+	else
+	{
+		digitalWrite(pins[10], LOW);
 	}
 }
