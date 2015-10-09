@@ -322,6 +322,7 @@ void PS2Controller::writeLJoy(uint8_t val, uint8_t val2)
 		digitalWrite(pins[9], HIGH);
 		delay(1); //put a space between bytes of data
 	}
+}
 	
 	void writeSHDN(uint8_t val)
 	{
