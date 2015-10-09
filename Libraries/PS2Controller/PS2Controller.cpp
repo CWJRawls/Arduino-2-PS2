@@ -30,8 +30,10 @@ void PS2Controller::sendData(uint8_t data[])
 	writeStart(data[4]);
 	writeR1(data[5]);
 	writeL1(data[6]);
+	writeSHDN(0);
 	writeRJoy(data[7], data[8]);
 	writeRJoy(data[9], data[10]);
+	writeSHDN(1);
 }
 
 void PS2Controller::writeX(uint8_t val)
@@ -216,7 +218,7 @@ void PS2Controller::writeRJoy(uint8_t val, uint8_t val2)
 		
 		//write high on chip select so that the data will be read from the register to the latch
 		digitalWrite(pins[8], HIGH);
-		delay(1); //put a defined space between bytes
+		delay(5); //put a defined space between bytes
 	}
 }
 
@@ -319,5 +321,17 @@ void PS2Controller::writeLJoy(uint8_t val, uint8_t val2)
 		//write high on chip select to allow for decoding of the data
 		digitalWrite(pins[9], HIGH);
 		delay(1); //put a space between bytes of data
+	}
+	
+	void writeSHDN(uint8_t val)
+	{
+		if(val == 1)
+		{
+			digitalWrite(pins[10], HIGH);
+		}
+		else
+		{
+			digitalWrite(pins[10], LOW);
+		}
 	}
 }

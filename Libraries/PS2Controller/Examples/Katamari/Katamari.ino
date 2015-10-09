@@ -1,7 +1,12 @@
 #include <PS2Controller.h> //library import
-#include <inttypes.h>
-/* Pin numbers
+#include <inttypes.h> //used to gain access 8-bit unsigned integer type
+/* PURPOSE
+This sketch is a demo sketch meant to test the PS2Controller library for the
+PS2 game Katamari Damacy. The data streams are meant to work with the buttons
+and joysticks needed for game operation. The joystick data is being supplied
+by a 4-channel digipot chip (AD8403 10k ohms version). */
 
+/* Pin numbers
 2 - x
 3 - o
 4 - square
@@ -12,6 +17,7 @@
 9 - SDI
 10 - Clk
 11 - CS
+12 - SHDN
 */
 
 /* Data index
@@ -47,8 +53,9 @@ void setup()
   pinMode(9, OUTPUT); //cs
   pinMode(10, OUTPUT); //clk
   pinMode(11, OUTPUT); //sdi
+  pinMode(12, OUTPUT); //SHDN
   
-  uint8_t pins[] = {2,3,4,5,6,7,8,11,10,9}; //create an array for the pin numbers
+  uint8_t pins[] = {2,3,4,5,6,7,8,11,10,9,12}; //create an array for the pin numbers
   
   control.setPins(pins); //pass the pin numbers to the object
   
