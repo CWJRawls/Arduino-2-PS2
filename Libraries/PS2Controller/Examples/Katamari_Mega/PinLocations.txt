@@ -1,0 +1,33 @@
+INPUT PINS
+
+Clock-Mouse 1:	43
+SDIO Mouse 1:	44
+Clock-Mouse 2:	45
+SDIO Mouse 2:	46
+X Button:	22
+Circle Button:	23
+Square Button:	24
+Triangle:	25
+Start Button:	26
+R1 Button:	27
+L1 Button:	28
+R3 Button:	29
+L3 Button:	30
+Game Mode:	31
+
+OUTPUT PINS
+X Button:	2
+Circle Button:	3
+Square Button:	4
+Triangle:	5
+Start Button:	10
+R1 Button:	6
+L1 Button:	7
+R3 Button:	8
+L3 Button:	9
+SDI:		51
+Clock:		52
+CS:		49
+LED Red:	40
+LED Green:	41
+LED Blue:	42

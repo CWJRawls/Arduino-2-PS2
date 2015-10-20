@@ -198,3 +198,43 @@ void PS2Controller::writeL3(uint8_t val)
 		digitalWrite(pins[8], LOW);
 	}
 }
+
+uint8_t PS2Controller::scaleMouseData(uint8_t m_data)
+{
+	if(m_data < 127)
+	{
+		m_data += 127;
+	}
+	else
+	{
+		m_data -= 127;
+	}
+	
+	if(m_data > 122 && m_data < 132)
+	{
+		m_data = 127; //give some room for sensor error
+	}
+	else
+	{
+		if(m_data < 127)
+		{
+			//get distance from 0
+			m_data = 127 - m_data;
+			//make lower values greater weight
+			m_data = m_data + ((127 - m_data) / m_data);
+			//once again get the distance from neutral
+			m_data = 127 - m_data;
+		}
+		else
+		{
+			//get distance from neutral
+			m_data -= 126;
+			//give lower values more weight
+			m_data = m_data + ((127 - m_data)/ m_data);
+			//add back to neutral
+			m_data += 126;
+		}
+	}
+	
+	return m_data;
+}

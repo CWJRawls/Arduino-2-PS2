@@ -59,4 +59,5 @@ class PS2Controller{
 	void writeDigiPot(uint8_t addr, uint8_t data);
 	void writeR3(uint8_t val);
 	void writeL3(uint8_t val);
+	uint8_t scaleMouseData(uint8_t m_data);
 };
