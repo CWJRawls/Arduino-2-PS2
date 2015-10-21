@@ -84,7 +84,7 @@ l joy y - 12
 PS2Controller control = PS2Controller();
 
 uint8_t data[] = {0,0,0,0,0,0,0,0,0,0,0,0,0};
-
+int joy_data[] = {0,0,0,0};
 int mode = 0;
 
 uint8_t i = 0;
@@ -225,10 +225,15 @@ void loop()
     data[8] = 0;
   }
   
-  data[9] = getRJoyPosX();
-  data[10] = getRJoyPosY();
-  data[11] = getLJoyPosX();
-  data[12] = getLJoyPosY();
+  //format the data and prep for sending
+  getJoystickData(getRJoyPosX(), getRJoyPosY());
+  
+  data[9] = joy_data[0];
+  data[10] = joy_data[1];
+  data[11] = joy_data[2];
+  data[12] = joy_data[3];
+
+  
 
   //send the data
   control.sendData(data);
@@ -450,4 +455,87 @@ void setLED(int c)
     digitalWrite(LED_B, HIGH);
   }
 }
+
+void getJoystickData(int joy_x, int joy_y)
+{
+  
+  if(mode == 0) //Main menu
+  {
+    joy_data[0] = joy_x;
+    joy_data[2] = joy_x;
+    joy_data[1] = joy_y;
+    joy_data[3] = joy_y;
+  }
+  else if(mode == 1)//in game menus
+  {
+    joy_data[0] = 127;
+    joy_data[1] = 127;
+    joy_data[2] = joy_x;
+    joy_data[3] = joy_y;
+  }
+  else //in game
+  {
+    joy_data[0] = 127;
+    joy_data[2] = 127;
+    
+    if(joy_x < 127)
+    {
+      if(joy_y > 127)
+      {
+        joy_data[1] = 255;
+        joy_data[3] = 255 - (127 - joy_x);
+      }
+      else if(joy_y < 127)
+      {
+        joy_data[1] = 0;
+        joy_data[3] = 127 - joy_x;
+      }
+      else
+      {
+        joy_data[1] = 127;
+        joy_data[3] = 127 - joy_x;
+      }
+    }
+    else if(joy_x > 127)
+    {
+      if(joy_y > 127)
+      {
+        joy_data[3] = 255;
+        joy_data[1] = 255 - (joy_x - 127);
+      }
+      else if(joy_y < 127)
+      {
+        joy_data[3] = 0;
+        joy_data[1] = 0 + (joy_x - 127);
+      }
+      else
+      {
+        joy_data[3] = 127;
+        joy_data[1] = 127 - (joy_x - 127);
+      }
+    }
+    else
+    {
+      if(joy_y > 127)
+      {
+        joy_data[1] = 255;
+        joy_data[3] = 255;
+      }
+      else if(joy_y < 127)
+      {
+        joy_data[1] = 0;
+        joy_data[3] = 0;
+      }
+      else
+      {
+        joy_data[1] = 127;
+        joy_data[3] = 127;
+      }
+    }
+  }
+  
+  return joy_data;
+}
+      
+     
   
